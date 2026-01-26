@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "Bulbasaur",
+    "types": ["Grass", "Poison"],
+    "stats": {
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "specialAttack": 65,
+      "specialDefense": 65,
+      "speed": 45
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ivysaur",
+    "types": ["Grass", "Poison"],
+    "stats": {
+      "hp": 60,
+      "attack": 62,
+      "defense": 63,
+      "specialAttack": 80,
+      "specialDefense": 80,
+      "speed": 60
+    }
+  },
+  {
+    "id": 3,
+    "name": "Venusaur",
+    "types": ["Grass", "Poison"],
+    "stats": {
+      "hp": 80,
+      "attack": 82,
+      "defense": 83,
+      "specialAttack": 100,
+      "specialDefense": 100,
+      "speed": 80
+    }
+  },
+  {
+    "id": 4,
+    "name": "Charmander",
+    "types": ["Fire"],
+    "stats": {
+      "hp": 39,
+      "attack": 52,
+      "defense": 43,
+      "specialAttack": 60,
+      "specialDefense": 50,
+      "speed": 65
+    }
+  },
+  {
+    "id": 5,
+    "name": "Charmeleon",
+    "types": ["Fire"],
+    "stats": {
+      "hp": 58,
+      "attack": 64,
+      "defense": 58,
+      "specialAttack": 80,
+      "specialDefense": 65,
+      "speed": 80
+    }
+  },
+  {
+    "id": 6,
+    "name": "Charizard",
+    "types": ["Fire", "Flying"],
+    "stats": {
+      "hp": 78,
+      "attack": 84,
+      "defense": 78,
+      "specialAttack": 109,
+      "specialDefense": 85,
+      "speed": 100
+    }
+  }
+]
