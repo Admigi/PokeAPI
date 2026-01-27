@@ -30,4 +30,9 @@ public class PokemonResource {
     public List<Pokemon> getByName(@RequestParam String name) {
         return pokemonService.findByName(name);
     }
+
+    @GetMapping(value = "/pokemon", params = "type")
+    public List<Pokemon> getByType(@RequestParam String type) {
+        return pokemonService.findByType(type);
+    }
 }

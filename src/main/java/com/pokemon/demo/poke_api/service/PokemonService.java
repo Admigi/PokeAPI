@@ -30,9 +30,17 @@ public class PokemonService {
     }
 
     public List<Pokemon> findByName(String name) {
-        System.out.println(name);
         return pokemonProvider.findAll().stream()
                 .filter(p -> p.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Pokemon> findByType(String type) {
+        String lowerType = type.toLowerCase();
+
+        return pokemonProvider.findAll().stream()
+                .filter(p -> p.getTypes().stream()
+                        .anyMatch(t -> t.toLowerCase().contains(lowerType)))
                 .collect(Collectors.toList());
     }
 }
