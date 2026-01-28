@@ -22,14 +22,15 @@ public class PokemonProvider {
                 throw new RuntimeException("pokemon.json not found in classpath!");
             }
 
-            this.pokemons = mapper.readValue(is, new TypeReference<List<Pokemon>>() {});
+            List<Pokemon> loaded = mapper.readValue(is, new TypeReference<List<Pokemon>>() {});
+            this.pokemons = Collections.unmodifiableList(loaded);
         } catch (Exception e) {
             throw new RuntimeException("Failed to load pokemon.json", e);
         }
     }
 
     public List<Pokemon> findAll() {
-        return Collections.unmodifiableList(pokemons);
+        return pokemons;
     }
 
 }
