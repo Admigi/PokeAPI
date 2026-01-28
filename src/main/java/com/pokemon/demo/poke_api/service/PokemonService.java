@@ -1,6 +1,7 @@
 package com.pokemon.demo.poke_api.service;
 
 import com.pokemon.demo.poke_api.domain.Pokemon;
+import com.pokemon.demo.poke_api.exception.PokemonNotFoundException;
 import com.pokemon.demo.poke_api.provider.PokemonProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,14 @@ public class PokemonService {
         return pokemonProvider.findAll().stream()
                 .filter(p -> p.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Pokemon not found"));
+                .orElseThrow(() -> new PokemonNotFoundException(id));
     }
 
     public List<Pokemon> findByName(String name) {
+        String lowerName = name.toLowerCase();
+
         return pokemonProvider.findAll().stream()
-                .filter(p -> p.getName().toLowerCase().contains(name.toLowerCase()))
+                .filter(p -> p.getName().toLowerCase().contains(lowerName))
                 .collect(Collectors.toList());
     }
 

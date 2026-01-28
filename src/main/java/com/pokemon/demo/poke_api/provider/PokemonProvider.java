@@ -16,21 +16,18 @@ public class PokemonProvider {
 
     public PokemonProvider(ObjectMapper mapper) {
         try {
-            // 1 → open from classpath
             InputStream is = getClass().getClassLoader().getResourceAsStream("data/pokemon.json");
 
             if (is == null) {
                 throw new RuntimeException("pokemon.json not found in classpath!");
             }
 
-            // 2 → parse JSON into List<Pokemon>
             this.pokemons = mapper.readValue(is, new TypeReference<List<Pokemon>>() {});
         } catch (Exception e) {
             throw new RuntimeException("Failed to load pokemon.json", e);
         }
     }
 
-    // cache: just return the same list
     public List<Pokemon> findAll() {
         return Collections.unmodifiableList(pokemons);
     }
