@@ -9,7 +9,8 @@ public class PokeApiApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(PokeApiApplication.class, args);
-
 	}
 
 }
+
+//Trigger CI
