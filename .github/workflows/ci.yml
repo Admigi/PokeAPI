@@ -20,7 +20,7 @@ jobs:
           cache: maven
 
       - name: Run tests
-        run: ./mvnw test
+        run: bash ./mvnw test
 
   docker-build:
     runs-on: ubuntu-latest
