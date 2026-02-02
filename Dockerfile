@@ -7,11 +7,11 @@ COPY .mvn/ .mvn/
 COPY mvnw pom.xml ./
 
 # Download dependencies (cached unless pom changes)
-RUN ./mvnw -q -DskipTests dependency:go-offline
+RUN bash ./mvnw -q -DskipTests dependency:go-offline
 
 # Copy sources and build
 COPY src/ src/
-RUN ./mvnw -q test && ./mvnw -q package -DskipTests
+RUN bash ./mvnw -q test && bash ./mvnw -q package -DskipTests
 
 # ---- Run stage ----
 FROM eclipse-temurin:21-jre
