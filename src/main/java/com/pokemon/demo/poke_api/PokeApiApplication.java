@@ -12,5 +12,3 @@ public class PokeApiApplication {
 	}
 
 }
-
-//Trigger CI

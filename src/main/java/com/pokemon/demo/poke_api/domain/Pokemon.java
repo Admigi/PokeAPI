@@ -16,5 +16,4 @@ public class Pokemon {
     private String name;
     private List<String> types;
     private PokemonStats stats;
-
 }
