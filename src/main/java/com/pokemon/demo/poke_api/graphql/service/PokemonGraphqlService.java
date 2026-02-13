@@ -12,6 +12,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * GraphQL-specific query logic for Pokemon.
+ *
+ * Responsible for applying filtering, sorting and pagination
+ * to in-memory Pokemon collections.
+ *
+ * Keeps the GraphQL resolver thin while leaving the core
+ * PokemonService independent from GraphQL concerns.
+ */
+
+
 @Service
 public class PokemonGraphqlService {
 
@@ -35,46 +46,41 @@ public class PokemonGraphqlService {
 
         List<Pokemon> result = new ArrayList<>(list);
 
-        if (filter.getName() != null && !filter.getName().isBlank()) {
-            String q = filter.getName().toLowerCase(Locale.ROOT);
+        String nameQuery = normalize(filter.getName());
+        String typeQuery = normalize(filter.getType());
+        List<String> typesAll = normalizeList(filter.getTypesAll());
+        List<String> typesAny = normalizeList(filter.getTypesAny());
+
+        if (nameQuery != null) {
             result.removeIf(p ->
-                    p.getName() == null || !p.getName().toLowerCase(Locale.ROOT).contains(q)
+                    p.getName() == null ||
+                            !p.getName().toLowerCase(Locale.ROOT).contains(nameQuery)
             );
         }
 
-        if (filter.getType() != null && !filter.getType().isBlank()) {
-            String q = filter.getType().toLowerCase(Locale.ROOT);
+        // REST-style contains
+        if (typeQuery != null) {
             result.removeIf(p ->
-                    p.getTypes() == null || p.getTypes().stream()
-                            .map(t -> t == null ? "" : t.toLowerCase(Locale.ROOT))
-                            .noneMatch(t -> t.contains(q))
+                    p.getTypes() == null ||
+                            p.getTypes().stream()
+                                    .map(t -> t == null ? "" : t.toLowerCase(Locale.ROOT))
+                                    .noneMatch(t -> t.contains(typeQuery))
             );
         }
 
-        if (filter.getTypesAll() != null && !filter.getTypesAll().isEmpty()) {
-            List<String> required = filter.getTypesAll().stream()
-                    .filter(s -> s != null && !s.isBlank())
-                    .map(s -> s.toLowerCase(Locale.ROOT))
-                    .toList();
-
-            if (!required.isEmpty()) {
-                result.removeIf(p -> !hasAllTypes(p, required));
-            }
+        // GraphQL AND (exact)
+        if (!typesAll.isEmpty()) {
+            result.removeIf(p -> !hasAllTypes(p, typesAll));
         }
 
-        if (filter.getTypesAny() != null && !filter.getTypesAny().isEmpty()) {
-            List<String> any = filter.getTypesAny().stream()
-                    .filter(s -> s != null && !s.isBlank())
-                    .map(s -> s.toLowerCase(Locale.ROOT))
-                    .toList();
-
-            if (!any.isEmpty()) {
-                result.removeIf(p -> !hasAnyType(p, any));
-            }
+        // GraphQL OR (exact)
+        if (!typesAny.isEmpty()) {
+            result.removeIf(p -> !hasAnyType(p, typesAny));
         }
 
         return result;
     }
+
 
     private boolean hasAllTypes(Pokemon p, List<String> requiredLowered) {
         if (p.getTypes() == null) return false;
@@ -150,4 +156,23 @@ public class PokemonGraphqlService {
         int toIndex = Math.min(list.size(), safeOffset + safeLimit);
         return list.subList(safeOffset, toIndex);
     }
+
+    private String normalize(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        return value.toLowerCase(Locale.ROOT);
+    }
+
+    private List<String> normalizeList(List<String> values) {
+        if (values == null) {
+            return List.of();
+        }
+
+        return values.stream()
+                .filter(v -> v != null && !v.isBlank())
+                .map(v -> v.toLowerCase(Locale.ROOT))
+                .toList();
+    }
+
 }
