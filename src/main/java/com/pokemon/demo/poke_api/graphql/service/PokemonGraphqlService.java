@@ -68,12 +68,10 @@ public class PokemonGraphqlService {
             );
         }
 
-        // GraphQL AND (exact)
         if (!typesAll.isEmpty()) {
             result.removeIf(p -> !hasAllTypes(p, typesAll));
         }
 
-        // GraphQL OR (exact)
         if (!typesAny.isEmpty()) {
             result.removeIf(p -> !hasAnyType(p, typesAny));
         }
