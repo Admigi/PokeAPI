@@ -9,6 +9,7 @@ type Query {
 }
 
 input PokemonFilter {
+    id: Int
     name: String
     type: String
     typesAll: [String!]

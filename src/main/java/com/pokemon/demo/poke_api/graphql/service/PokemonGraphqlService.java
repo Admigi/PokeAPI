@@ -58,7 +58,6 @@ public class PokemonGraphqlService {
             );
         }
 
-        // REST-style contains
         if (typeQuery != null) {
             result.removeIf(p ->
                     p.getTypes() == null ||
@@ -74,6 +73,10 @@ public class PokemonGraphqlService {
 
         if (!typesAny.isEmpty()) {
             result.removeIf(p -> !hasAnyType(p, typesAny));
+        }
+
+        if (filter.getId() != null) {
+            result.removeIf(p -> !filter.getId().equals(p.getId()));
         }
 
         return result;

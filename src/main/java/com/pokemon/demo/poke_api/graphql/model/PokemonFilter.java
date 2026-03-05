@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class PokemonFilter {
-
+    private Integer id;
     private String name;
     private String type;
     private List<String> typesAll;
