@@ -5,6 +5,7 @@ import com.pokemon.demo.poke_api.graphql.model.PokemonFilter;
 import com.pokemon.demo.poke_api.graphql.model.PokemonSort;
 import com.pokemon.demo.poke_api.graphql.model.PokemonSortField;
 import com.pokemon.demo.poke_api.graphql.model.SortDirection;
+import com.pokemon.demo.poke_api.graphql.model.PokemonPage;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class PokemonGraphqlService {
     private static final int DEFAULT_LIMIT = 30;
     private static final int MAX_LIMIT = 100;
 
-    public List<Pokemon> applyQuery(
+    public PokemonPage applyQuery(
             List<Pokemon> base,
             PokemonFilter filter,
             PokemonSort sort,
@@ -38,7 +39,9 @@ public class PokemonGraphqlService {
     ) {
         List<Pokemon> filtered = applyFilter(base, filter);
         List<Pokemon> sorted = applySort(filtered, sort);
-        return paginate(sorted, limit, offset);
+        int total = sorted.size();
+        List<Pokemon> paginated = paginate(sorted, limit, offset);
+        return new PokemonPage(paginated, total);
     }
 
     private List<Pokemon> applyFilter(List<Pokemon> list, PokemonFilter filter) {

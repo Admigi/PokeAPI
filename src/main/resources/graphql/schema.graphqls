@@ -5,7 +5,7 @@ type Query {
         sort: PokemonSort
         limit: Int
         offset: Int
-    ): [Pokemon!]!
+    ): PokemonPage
 }
 
 input PokemonFilter {
@@ -52,4 +52,9 @@ type PokemonStats {
     specialAttack: Int!
     specialDefense: Int!
     speed: Int!
+}
+
+type PokemonPage {
+    items: [Pokemon!]!
+    total: Int!
 }

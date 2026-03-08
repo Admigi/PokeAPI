@@ -51,14 +51,16 @@ class PokemonQueryResolverGraphQlTest {
         graphQlTester.document("""
                 query {
                   pokemons(filter: { typesAll: ["fire", "flying"] }, limit: 50) {
-                    id
-                    name
-                    types
+                    items {
+                      id
+                      name
+                      types
+                    }
                   }
                 }
                 """)
                 .execute()
-                .path("pokemons[*].name")
+                .path("pokemons.items[*].name")
                 .entityList(String.class)
                 .satisfies(names -> assertThat(names).containsExactly("Charizard"));
     }
@@ -68,13 +70,15 @@ class PokemonQueryResolverGraphQlTest {
         graphQlTester.document("""
                 query {
                   pokemons(sort: { field: SPEED, direction: DESC }, limit: 10) {
-                    name
-                    stats { speed }
+                    items {
+                      name
+                      stats { speed }
+                    }
                   }
                 }
                 """)
                 .execute()
-                .path("pokemons[*].stats.speed")
+                .path("pokemons.items[*].stats.speed")
                 .entityList(Integer.class)
                 .satisfies(speeds -> {
                     assertThat(speeds).isNotEmpty();
@@ -89,13 +93,15 @@ class PokemonQueryResolverGraphQlTest {
         graphQlTester.document("""
                 query {
                   pokemons(sort: { field: ID, direction: ASC }, limit: 2, offset: 2) {
-                    id
-                    name
+                    items {
+                      id
+                      name
+                    }
                   }
                 }
                 """)
                 .execute()
-                .path("pokemons[*].id")
+                .path("pokemons.items[*].id")
                 .entityList(Integer.class)
                 .satisfies(ids -> {
                     assertThat(ids).containsExactly(6, 7);
@@ -107,18 +113,20 @@ class PokemonQueryResolverGraphQlTest {
         var result = graphQlTester.document("""
             query {
               pokemons(limit: 1) {
-                name
-                imageUrl
+                items {
+                  name
+                  imageUrl
+                }
               }
             }
             """)
                 .execute();
 
-        result.path("pokemons[0].name")
+        result.path("pokemons.items[0].name")
                 .entity(String.class)
                 .isEqualTo("Bulbasaur");
 
-        result.path("pokemons[0].imageUrl")
+        result.path("pokemons.items[0].imageUrl")
                 .entity(String.class)
                 .isEqualTo("https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png");
     }

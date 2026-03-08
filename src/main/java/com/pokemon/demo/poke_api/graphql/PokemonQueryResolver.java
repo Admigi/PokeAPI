@@ -2,6 +2,7 @@ package com.pokemon.demo.poke_api.graphql;
 
 import com.pokemon.demo.poke_api.domain.Pokemon;
 import com.pokemon.demo.poke_api.graphql.model.PokemonFilter;
+import com.pokemon.demo.poke_api.graphql.model.PokemonPage;
 import com.pokemon.demo.poke_api.graphql.model.PokemonSort;
 import com.pokemon.demo.poke_api.graphql.service.PokemonGraphqlService;
 import com.pokemon.demo.poke_api.service.PokemonService;
@@ -28,7 +29,7 @@ public class PokemonQueryResolver {
     }
 
     @QueryMapping
-    public List<Pokemon> pokemons(
+    public PokemonPage pokemons(
             @Argument PokemonFilter filter,
             @Argument PokemonSort sort,
             @Argument Integer limit,
