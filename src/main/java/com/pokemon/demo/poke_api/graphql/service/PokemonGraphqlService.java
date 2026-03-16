@@ -1,6 +1,7 @@
 package com.pokemon.demo.poke_api.graphql.service;
 
 import com.pokemon.demo.poke_api.domain.Pokemon;
+import com.pokemon.demo.poke_api.domain.PokemonStats;
 import com.pokemon.demo.poke_api.graphql.model.PokemonFilter;
 import com.pokemon.demo.poke_api.graphql.model.PokemonSort;
 import com.pokemon.demo.poke_api.graphql.model.PokemonSortField;
@@ -159,6 +160,17 @@ public class PokemonGraphqlService {
 
         int toIndex = Math.min(list.size(), safeOffset + safeLimit);
         return list.subList(safeOffset, toIndex);
+    }
+
+    public PokemonStats maxStats(List<Pokemon> list) {
+        return PokemonStats.builder()
+                .hp(list.stream().mapToInt(p -> p.getStats().getHp()).max().orElse(0))
+                .attack(list.stream().mapToInt(p -> p.getStats().getAttack()).max().orElse(0))
+                .defense(list.stream().mapToInt(p -> p.getStats().getDefense()).max().orElse(0))
+                .specialAttack(list.stream().mapToInt(p -> p.getStats().getSpecialAttack()).max().orElse(0))
+                .specialDefense(list.stream().mapToInt(p -> p.getStats().getSpecialDefense()).max().orElse(0))
+                .speed(list.stream().mapToInt(p -> p.getStats().getSpeed()).max().orElse(0))
+                .build();
     }
 
     private String normalize(String value) {

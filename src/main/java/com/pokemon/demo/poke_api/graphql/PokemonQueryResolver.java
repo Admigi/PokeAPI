@@ -1,6 +1,7 @@
 package com.pokemon.demo.poke_api.graphql;
 
 import com.pokemon.demo.poke_api.domain.Pokemon;
+import com.pokemon.demo.poke_api.domain.PokemonStats;
 import com.pokemon.demo.poke_api.graphql.model.PokemonFilter;
 import com.pokemon.demo.poke_api.graphql.model.PokemonPage;
 import com.pokemon.demo.poke_api.graphql.model.PokemonSort;
@@ -42,5 +43,10 @@ public class PokemonQueryResolver {
                 limit,
                 offset
         );
+    }
+
+    @QueryMapping
+    public PokemonStats maxStats() {
+        return pokemonGraphqlService.maxStats(pokemonService.getAllPokemon());
     }
 }

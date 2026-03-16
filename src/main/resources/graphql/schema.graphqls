@@ -6,6 +6,7 @@ type Query {
         limit: Int
         offset: Int
     ): PokemonPage
+    maxStats: PokemonStats!
 }
 
 input PokemonFilter {
