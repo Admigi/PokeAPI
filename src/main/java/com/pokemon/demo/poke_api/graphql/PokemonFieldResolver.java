@@ -9,9 +9,17 @@ public class PokemonFieldResolver {
 
     @SchemaMapping(typeName = "Pokemon", field = "imageUrl")
     public String imageUrl(Pokemon pokemon) {
-        return "https://img.pokemondb.net/sprites/black-white/normal/"
-                + pokemon.getName().toLowerCase().replace("♀", "-f")
+        String slug = toSpriteSlug(pokemon.getName());
+
+        return "https://img.pokemondb.net/sprites/brilliant-diamond-shining-pearl/normal/"
+                + slug + ".png";
+    }
+
+    private String toSpriteSlug(String name) {
+        return name.toLowerCase()
+                .replace("♀", "-f")
                 .replace("♂", "-m")
-                + ".png";
+                .replace(".", "")
+                .replace(" ", "-");
     }
 }
