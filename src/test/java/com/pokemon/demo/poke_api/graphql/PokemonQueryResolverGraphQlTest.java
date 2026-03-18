@@ -128,7 +128,7 @@ class PokemonQueryResolverGraphQlTest {
 
         result.path("pokemons.items[0].imageUrl")
                 .entity(String.class)
-                .isEqualTo("https://img.pokemondb.net/sprites/black-white/normal/bulbasaur.png");
+                .isEqualTo("https://img.pokemondb.net/sprites/brilliant-diamond-shining-pearl/normal/bulbasaur.png");
     }
 
     private Pokemon pokemon(int id, String name, List<String> types, PokemonStats stats) {
