@@ -19,6 +19,7 @@ public class PokemonFieldResolver {
         return name.toLowerCase()
                 .replace("♀", "-f")
                 .replace("♂", "-m")
+                .replace("'", "")
                 .replace(".", "")
                 .replace(" ", "-");
     }

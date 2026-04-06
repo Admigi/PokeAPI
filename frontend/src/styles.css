@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;900&display=swap');
+@import 'tailwindcss';
+
+html { display: block; }
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-rajdhani: "Rajdhani", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-rajdhani;
+  }
+}
+
+body {
+  overflow-y: scroll;
+}

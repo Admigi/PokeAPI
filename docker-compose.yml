@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - GRAPHQL_URL=http://backend:8080/graphql
+      - PORT=3000
+      - HOST=0.0.0.0
+    depends_on:
+      - backend

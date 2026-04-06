@@ -163,13 +163,14 @@ public class PokemonGraphqlService {
     }
 
     public PokemonStats maxStats(List<Pokemon> list) {
+        List<Pokemon> withStats = list.stream().filter(p -> p.getStats() != null).toList();
         return PokemonStats.builder()
-                .hp(list.stream().mapToInt(p -> p.getStats().getHp()).max().orElse(0))
-                .attack(list.stream().mapToInt(p -> p.getStats().getAttack()).max().orElse(0))
-                .defense(list.stream().mapToInt(p -> p.getStats().getDefense()).max().orElse(0))
-                .specialAttack(list.stream().mapToInt(p -> p.getStats().getSpecialAttack()).max().orElse(0))
-                .specialDefense(list.stream().mapToInt(p -> p.getStats().getSpecialDefense()).max().orElse(0))
-                .speed(list.stream().mapToInt(p -> p.getStats().getSpeed()).max().orElse(0))
+                .hp(withStats.stream().mapToInt(p -> p.getStats().getHp()).max().orElse(0))
+                .attack(withStats.stream().mapToInt(p -> p.getStats().getAttack()).max().orElse(0))
+                .defense(withStats.stream().mapToInt(p -> p.getStats().getDefense()).max().orElse(0))
+                .specialAttack(withStats.stream().mapToInt(p -> p.getStats().getSpecialAttack()).max().orElse(0))
+                .specialDefense(withStats.stream().mapToInt(p -> p.getStats().getSpecialDefense()).max().orElse(0))
+                .speed(withStats.stream().mapToInt(p -> p.getStats().getSpeed()).max().orElse(0))
                 .build();
     }
 
