@@ -1,12 +1,16 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { join, extname } from "node:path";
+import { join, extname, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { serve } from "srvx";
 import app from "./dist/server/server.js";
 
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || "0.0.0.0";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const clientDir = join(__dirname, "dist/client");
 
 const mimeTypes = {
   ".js": "application/javascript",
@@ -25,14 +29,17 @@ serve({
   hostname: host,
   async fetch(req) {
     const url = new URL(req.url);
-    const staticPath = join("dist/client", url.pathname);
+    const staticPath = join(clientDir, url.pathname);
 
     if (existsSync(staticPath) && !staticPath.endsWith("/")) {
       const ext = extname(staticPath);
       const contentType = mimeTypes[ext] || "application/octet-stream";
       const file = await readFile(staticPath);
       return new Response(file, {
-        headers: { "Content-Type": contentType },
+        headers: {
+          "Content-Type": contentType,
+          "Cache-Control": "public, max-age=31536000, immutable",
+        },
       });
     }
 
