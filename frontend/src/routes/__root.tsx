@@ -1,6 +1,6 @@
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import Header from "../components/Header";
-import appCss from "../styles.css?url";
+import "../styles.css";
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -9,7 +9,6 @@ export const Route = createRootRoute({
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
 			{ title: "Pokédex" },
 		],
-		links: [{ rel: "stylesheet", href: appCss }],
 	}),
 	shellComponent: RootDocument,
 });
