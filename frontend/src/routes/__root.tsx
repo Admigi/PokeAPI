@@ -16,15 +16,9 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" style={{ visibility: "hidden" }}>
+		<html lang="en">
 			<head>
 				<HeadContent />
-				{/* biome-ignore lint/security/noDangerouslySetInnerHtml: safe static script for flash prevention */}
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `window.addEventListener('load',function(){document.documentElement.style.visibility='visible'})`,
-					}}
-				/>
 			</head>
 			<body>
 				<Header />
