@@ -30,10 +30,6 @@ serve({
     const url = new URL(req.url);
     const staticPath = join(clientDir, url.pathname);
 
-    console.log(`Request: ${url.pathname}`);
-    console.log(`Looking for: ${staticPath}`);
-    console.log(`Exists: ${existsSync(staticPath)}`);
-
     if (existsSync(staticPath) && !staticPath.endsWith("/")) {
       const ext = extname(staticPath);
       const contentType = mimeTypes[ext] || "application/octet-stream";
