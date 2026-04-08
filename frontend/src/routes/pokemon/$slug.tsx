@@ -47,11 +47,11 @@ function PokemonDetail() {
 	if (error) return <p>Error: {error}</p>;
 	if (!pokemon)
 		return (
-			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+			<div className="h-[calc(100vh-13rem)] bg-gray-50 flex items-center justify-center">
 				<img
 					src="/Spinner.svg"
 					alt="Loading..."
-					className="w-20 h-20 animate-spin"
+					className="w-28 h-28 animate-spin"
 					style={{ animationDuration: "1.2s" }}
 				/>
 			</div>
