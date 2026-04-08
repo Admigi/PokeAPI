@@ -173,6 +173,7 @@ export default function PokemonGrid() {
 							p={p}
 							activeStat={sortField}
 							statMax={statMax}
+							loading={loading}
 						/>
 					))}
 				</div>
