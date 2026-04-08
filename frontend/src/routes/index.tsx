@@ -53,6 +53,7 @@ export default function PokemonGrid() {
 	const [error, setError] = useState<string | null>(null);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [statsMax, setStatsMax] = useState<Record<string, number>>({});
+	const [displayedSortField, setDisplayedSortField] = useState<string | undefined>(undefined);
 
 	const currentPage = page ?? 1;
 
@@ -66,7 +67,7 @@ export default function PokemonGrid() {
 			.catch((err) => console.error("Failed to fetch max stats", err));
 	}, []);
 
-	const statMax = getStatMax(sortField, statsMax);
+	const statMax = getStatMax(displayedSortField, statsMax);
 
 	const toggleType = (type: string) => {
 		const current = typesAny ?? [];
@@ -124,6 +125,7 @@ export default function PokemonGrid() {
 			.then((data) => {
 				setPokemons(data.pokemons.items);
 				setTotal(data.pokemons.total);
+				setDisplayedSortField(sortField);
 			})
 			.catch((err) => setError(err.message))
 			.finally(() => setLoading(false));
@@ -171,9 +173,8 @@ export default function PokemonGrid() {
 						<PokemonCard
 							key={p.id}
 							p={p}
-							activeStat={sortField}
+							activeStat={displayedSortField}
 							statMax={statMax}
-							loading={loading}
 						/>
 					))}
 				</div>

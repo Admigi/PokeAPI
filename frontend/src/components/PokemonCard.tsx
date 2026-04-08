@@ -12,7 +12,6 @@ interface PokemonCardProps {
 	};
 	activeStat: string | undefined;
 	statMax: number;
-	loading?: boolean;
 }
 
 const TypeBadge = ({ type }: { type: string }) => {
@@ -31,7 +30,6 @@ export default function PokemonCard({
 	p,
 	activeStat,
 	statMax,
-	loading = false,
 }: PokemonCardProps) {
 	const primary = typeColors[p.types[0]] || typeColors.Normal;
 	const statValue = activeStat ? p.stats?.[STAT_KEY_MAP[activeStat]] : null;
@@ -81,7 +79,7 @@ export default function PokemonCard({
 
 					{/* Reserved space for stat bar */}
 					<div className="h-4">
-						{activeStat && statValue !== null && !loading && (
+						{activeStat && statValue !== null && (
 							<div className="flex items-center gap-2">
 								<span className="text-xs font-bold text-gray-400 w-12 shrink-0">
 									{statLabel}
