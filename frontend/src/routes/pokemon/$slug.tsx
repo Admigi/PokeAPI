@@ -45,7 +45,17 @@ function PokemonDetail() {
 	}, [slug]);
 
 	if (error) return <p>Error: {error}</p>;
-	if (!pokemon) return null;
+	if (!pokemon)
+		return (
+			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+				<img
+					src="/Spinner.svg"
+					alt="Loading..."
+					className="w-20 h-20 animate-spin"
+					style={{ animationDuration: "1.2s" }}
+				/>
+			</div>
+		);
 
 	const primary = typeColors[pokemon.types[0]] || typeColors.Normal;
 	const total =
