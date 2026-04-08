@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Pagination from "@/components/Pagination";
 import PokemonCard from "@/components/PokemonCard";
 import Sidebar from "@/components/Sidebar";
+import SkeletonCard from "@/components/SkeletonCard";
 import { STAT_KEY_MAP } from "@/constants/pokemon";
 import { graphqlFetch } from "../api/graphqlClient.ts";
 import { GET_ALL_POKEMONS, GET_STAT_MAX } from "../api/queries.ts";
@@ -169,14 +170,19 @@ export default function PokemonGrid() {
 						gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
 					}}
 				>
-					{pokemons.map((p) => (
-						<PokemonCard
-							key={p.id}
-							p={p}
-							activeStat={displayedSortField}
-							statMax={statMax}
-						/>
-					))}
+					{loading && pokemons.length === 0
+						? Array.from({ length: PAGE_SIZE }, (_, i) => (
+								// biome-ignore lint/suspicious/noArrayIndexKey: skeleton cards are stateless placeholders
+								<SkeletonCard key={i} />
+							))
+						: pokemons.map((p) => (
+								<PokemonCard
+									key={p.id}
+									p={p}
+									activeStat={displayedSortField}
+									statMax={statMax}
+								/>
+							))}
 				</div>
 				<Pagination
 					currentPage={currentPage}
