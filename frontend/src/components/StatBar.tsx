@@ -11,10 +11,12 @@ export default function StatBar({ label, value, max = 160 }: StatBarProps) {
 	const pct = Math.round((value / max) * 100);
 	const barColor = pct > 65 ? "#4CAF50" : pct > 40 ? "#FF9800" : "#F44336";
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: value is intentionally used as an animation trigger
 	useEffect(() => {
+		setAnimated(false);
 		const timer = setTimeout(() => setAnimated(true), 100);
 		return () => clearTimeout(timer);
-	}, []);
+	}, [value]);
 
 	return (
 		<div className="mb-3">

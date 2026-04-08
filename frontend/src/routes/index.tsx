@@ -111,6 +111,7 @@ export default function PokemonGrid() {
 			else filter.typesAll = typesAny;
 		}
 
+		setLoading(true);
 		setError(null);
 		graphqlFetch(GET_ALL_POKEMONS, {
 			filter: Object.keys(filter).length > 0 ? filter : null,

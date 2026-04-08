@@ -1,7 +1,6 @@
-import { createServer } from "node:http";
-import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { join, extname, dirname } from "node:path";
+import { readFile } from "node:fs/promises";
+import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { serve } from "srvx";
 import app from "./dist/server/server.js";
