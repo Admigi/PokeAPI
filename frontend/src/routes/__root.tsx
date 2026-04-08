@@ -9,6 +9,7 @@ export const Route = createRootRoute({
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
 			{ title: "Pokédex" },
 		],
+		links: [{ rel: "icon", href: "/Logo.png", type: "image/png" }],
 	}),
 	shellComponent: RootDocument,
 });
