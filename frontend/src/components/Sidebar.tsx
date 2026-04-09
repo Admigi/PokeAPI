@@ -29,7 +29,7 @@ export default function Sidebar({
 	const activeCount = selectedTypes.length + (sortField ? 1 : 0);
 
 	return (
-		<aside className="w-64 flex-shrink-0">
+		<aside className="w-64 flex-shrink-0 pt-52 md:pt-0">
 			<div className="bg-white md:rounded-2xl shadow-sm border border-gray-100 p-5 min-h-full md:min-h-0 md:sticky md:top-24">
 				{/* Header */}
 				<div className="flex items-center justify-between mb-5">
@@ -96,9 +96,20 @@ export default function Sidebar({
 
 				{/* Sort */}
 				<div>
-					<p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
-						Sort by stat
-					</p>
+					<div className="flex items-center justify-between mb-3">
+						<p className="text-xs font-bold uppercase tracking-widest text-gray-400">
+							Sort by stat
+						</p>
+						{sortField && (
+							<button
+								type="reset"
+								onClick={() => setSortField(undefined)}
+								className="text-xs font-bold text-red-400 hover:text-red-600 transition-colors border-0 bg-transparent cursor-pointer"
+							>
+								Clear sort
+							</button>
+						)}
+					</div>
 					<div className="space-y-1.5">
 						{SORT_FIELDS.map(({ label, value }) => (
 							<button
@@ -124,15 +135,6 @@ export default function Sidebar({
 								)}
 							</button>
 						))}
-						{sortField && (
-							<button
-								type="reset"
-								onClick={() => setSortField(undefined)}
-								className="w-full text-xs font-bold text-gray-400 hover:text-gray-600 transition-colors pt-1 border-0 bg-transparent cursor-pointer"
-							>
-								Clear sort
-							</button>
-						)}
 					</div>
 				</div>
 			</div>

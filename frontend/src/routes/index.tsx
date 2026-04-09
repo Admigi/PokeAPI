@@ -54,6 +54,18 @@ export default function PokemonGrid() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+
+	useEffect(() => {
+		const isMobile = window.innerWidth < 768;
+		if (sidebarOpen && isMobile) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [sidebarOpen]);
 	const [statsMax, setStatsMax] = useState<Record<string, number>>({});
 	const [displayedSortField, setDisplayedSortField] = useState<string | undefined>(undefined);
 
@@ -146,10 +158,10 @@ export default function PokemonGrid() {
 					<button
 						type="button"
 						aria-label="Close filters"
-						className="fixed inset-x-0 top-[13rem] bottom-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
+						className="fixed inset-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
 						onClick={() => setSidebarOpen(false)}
 					/>
-					<div className="fixed top-[13rem] bottom-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
+					<div className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
 						<Sidebar
 							selectedTypes={typesAny ?? []}
 							typeMode={typeMode ?? "any"}

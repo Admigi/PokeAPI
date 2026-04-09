@@ -12,7 +12,7 @@ export default function Header() {
 
 	return (
 		<header>
-			<div className="bg-[#1a1a2e] px-8 pt-7 pb-5 sticky top-0 z-10">
+			<div className="bg-[#1a1a2e] px-8 pt-7 pb-5 sticky top-0 z-[60]">
 				<div className="max-w-5xl mx-auto">
 					<div className="flex items-center gap-3 mb-4">
 						<img src="Logo.png" alt="Logo" className="w-24 h-24" />

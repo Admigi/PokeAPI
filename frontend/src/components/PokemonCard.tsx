@@ -18,7 +18,7 @@ const TypeBadge = ({ type }: { type: string }) => {
 	const colors = typeColors[type] || typeColors.Normal;
 	return (
 		<span
-			className="px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-widest text-white"
+			className="px-2 sm:px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-widest text-white"
 			style={{ backgroundColor: colors.bg }}
 		>
 			{type}
