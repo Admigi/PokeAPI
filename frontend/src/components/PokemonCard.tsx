@@ -67,7 +67,7 @@ export default function PokemonCard({
 					/>
 				</div>
 
-				<div className="px-4 pt-3 pb-4">
+				<div className="px-4 pt-3 pb-3">
 					<p className="text-base font-extrabold text-gray-900 mb-2 tracking-wide">
 						{p.name}
 					</p>

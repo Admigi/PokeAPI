@@ -161,7 +161,7 @@ export default function PokemonGrid() {
 						className="fixed inset-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
 						onClick={() => setSidebarOpen(false)}
 					/>
-					<div className="no-scrollbar fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-white md:bg-transparent md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
+					<div className="no-scrollbar fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
 						<Sidebar
 							selectedTypes={typesAny ?? []}
 							typeMode={typeMode ?? "any"}

@@ -29,7 +29,7 @@ export default function Sidebar({
 	const bothActive = selectedTypes.length > 0 && !!sortField;
 
 	return (
-		<aside className="w-64 flex-shrink-0 pt-52 md:pt-0">
+		<aside className="w-64 flex-shrink-0 pt-[200px] md:pt-0">
 			<div className="bg-white md:rounded-2xl shadow-sm border border-gray-100 p-5 min-h-full md:min-h-0 md:sticky md:top-24">
 				{/* Header */}
 				<div className="flex items-center justify-between mb-5">
