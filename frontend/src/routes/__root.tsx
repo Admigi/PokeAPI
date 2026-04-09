@@ -1,5 +1,4 @@
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import Header from "../components/Header";
 import "../styles.css";
 
 export const Route = createRootRoute({
@@ -21,7 +20,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				<Header />
 				{children}
 				<Scripts />
 			</body>

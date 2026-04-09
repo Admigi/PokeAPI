@@ -4,6 +4,7 @@ import {
 	useSearch,
 } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import Header from "@/components/Header";
 import Pagination from "@/components/Pagination";
 import PokemonCard from "@/components/PokemonCard";
 import Sidebar from "@/components/Sidebar";
@@ -137,16 +138,18 @@ export default function PokemonGrid() {
 	if (error) return <p>Error: {error}</p>;
 
 	return (
+		<>
+		<Header />
 		<div className="max-w-6xl mx-auto px-5 py-8 flex gap-6">
 			{sidebarOpen && (
 				<>
 					<button
 						type="button"
 						aria-label="Close filters"
-						className="fixed inset-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
+						className="fixed inset-x-0 top-[13rem] bottom-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
 						onClick={() => setSidebarOpen(false)}
 					/>
-					<div className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
+					<div className="fixed top-[13rem] bottom-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
 						<Sidebar
 							selectedTypes={typesAny ?? []}
 							typeMode={typeMode ?? "any"}
@@ -198,5 +201,6 @@ export default function PokemonGrid() {
 				/>
 			</div>
 		</div>
+		</>
 	);
 }

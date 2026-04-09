@@ -47,7 +47,7 @@ function PokemonDetail() {
 	if (error) return <p>Error: {error}</p>;
 	if (!pokemon)
 		return (
-			<div className="h-[calc(100vh-13rem)] bg-gray-50 flex items-center justify-center">
+			<div className="h-screen bg-gray-50 flex items-center justify-center">
 				<img
 					src="/Spinner.svg"
 					alt="Loading..."
