@@ -87,7 +87,7 @@ function PokemonDetail() {
 					>
 						← Back to Pokédex
 					</button>
-					<div className="flex items-end justify-between">
+					<div className="flex flex-col-reverse sm:flex-row sm:items-end sm:justify-between gap-4">
 						<div>
 							<p className="text-white/70 text-sm font-bold tracking-widest mb-1 uppercase">
 								#{String(pokemon.id).padStart(3, "0")}
@@ -110,7 +110,7 @@ function PokemonDetail() {
 						<img
 							src={pokemon.imageUrl}
 							alt={pokemon.name}
-							className="w-44 h-44 object-contain relative z-10"
+							className="w-32 h-32 sm:w-44 sm:h-44 object-contain relative z-10 self-center sm:self-auto"
 							style={{ filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.25))" }}
 						/>
 					</div>

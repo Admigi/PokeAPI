@@ -30,7 +30,7 @@ export default function Sidebar({
 
 	return (
 		<aside className="w-64 flex-shrink-0">
-			<div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sticky top-24">
+			<div className="bg-white md:rounded-2xl shadow-sm border border-gray-100 p-5 min-h-full md:min-h-0 md:sticky md:top-24">
 				{/* Header */}
 				<div className="flex items-center justify-between mb-5">
 					<h2 className="text-sm font-black uppercase tracking-widest text-gray-800">

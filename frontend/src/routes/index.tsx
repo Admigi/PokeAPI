@@ -139,17 +139,27 @@ export default function PokemonGrid() {
 	return (
 		<div className="max-w-6xl mx-auto px-5 py-8 flex gap-6">
 			{sidebarOpen && (
-				<Sidebar
-					selectedTypes={typesAny ?? []}
-					typeMode={typeMode ?? "any"}
-					setTypeMode={setTypeMode}
-					toggleType={toggleType}
-					sortField={sortField ?? null}
-					setSortField={setSortField}
-					sortDir={sortDir ?? "DESC"}
-					setSortDir={setSortDir}
-					onReset={onReset}
-				/>
+				<>
+					<button
+						type="button"
+						aria-label="Close filters"
+						className="fixed inset-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
+						onClick={() => setSidebarOpen(false)}
+					/>
+					<div className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
+						<Sidebar
+							selectedTypes={typesAny ?? []}
+							typeMode={typeMode ?? "any"}
+							setTypeMode={setTypeMode}
+							toggleType={toggleType}
+							sortField={sortField ?? null}
+							setSortField={setSortField}
+							sortDir={sortDir ?? "DESC"}
+							setSortDir={setSortDir}
+							onReset={onReset}
+						/>
+					</div>
+				</>
 			)}
 			<div className="flex-1 min-w-0">
 				<div className="flex items-center justify-between mb-5">
@@ -165,10 +175,7 @@ export default function PokemonGrid() {
 					</button>
 				</div>
 				<div
-					className="grid gap-5"
-					style={{
-						gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-					}}
+					className="grid gap-5 grid-cols-2 sm:[grid-template-columns:repeat(auto-fill,minmax(180px,1fr))]"
 				>
 					{loading && pokemons.length === 0
 						? Array.from({ length: PAGE_SIZE }, (_, i) => (
