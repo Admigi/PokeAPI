@@ -26,7 +26,7 @@ export default function Sidebar({
 	setSortDir,
 	onReset,
 }: SidebarProps) {
-	const activeCount = selectedTypes.length + (sortField ? 1 : 0);
+	const bothActive = selectedTypes.length > 0 && !!sortField;
 
 	return (
 		<aside className="w-64 flex-shrink-0 pt-52 md:pt-0">
@@ -36,15 +36,13 @@ export default function Sidebar({
 					<h2 className="text-sm font-black uppercase tracking-widest text-gray-800">
 						Filters
 					</h2>
-					{activeCount > 0 && (
-						<button
-							type="reset"
-							onClick={onReset}
-							className="text-xs font-bold text-red-400 hover:text-red-600 transition-colors border-0 bg-transparent cursor-pointer"
-						>
-							Reset all
-						</button>
-					)}
+					<button
+						type="reset"
+						onClick={onReset}
+						className={`text-xs font-bold text-red-400 hover:text-red-600 transition-colors border-0 bg-transparent cursor-pointer ${!bothActive ? "invisible pointer-events-none" : ""}`}
+					>
+						Reset all
+					</button>
 				</div>
 
 				{/* Type filter */}
@@ -92,6 +90,13 @@ export default function Sidebar({
 							);
 						})}
 					</div>
+					<button
+						type="reset"
+						onClick={() => { for (const t of selectedTypes) toggleType(t); }}
+						className={`w-full text-xs font-bold text-gray-400 hover:text-gray-600 transition-colors pt-2 border-0 bg-transparent cursor-pointer ${selectedTypes.length === 0 ? "invisible pointer-events-none" : ""}`}
+					>
+						Clear types
+					</button>
 				</div>
 
 				{/* Sort */}
@@ -100,15 +105,6 @@ export default function Sidebar({
 						<p className="text-xs font-bold uppercase tracking-widest text-gray-400">
 							Sort by stat
 						</p>
-						{sortField && (
-							<button
-								type="reset"
-								onClick={() => setSortField(undefined)}
-								className="text-xs font-bold text-red-400 hover:text-red-600 transition-colors border-0 bg-transparent cursor-pointer"
-							>
-								Clear sort
-							</button>
-						)}
 					</div>
 					<div className="space-y-1.5">
 						{SORT_FIELDS.map(({ label, value }) => (
@@ -136,6 +132,13 @@ export default function Sidebar({
 							</button>
 						))}
 					</div>
+					<button
+						type="reset"
+						onClick={() => setSortField(undefined)}
+						className={`w-full text-xs font-bold text-gray-400 hover:text-gray-600 transition-colors pt-2 border-0 bg-transparent cursor-pointer ${!sortField ? "invisible pointer-events-none" : ""}`}
+					>
+						Clear sort
+					</button>
 				</div>
 			</div>
 		</aside>

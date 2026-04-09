@@ -22,7 +22,10 @@
   src: url('/fonts/rajdhani-latin-700-normal.woff2') format('woff2');
 }
 
-html { display: block; }
+html { display: block; color-scheme: only light; }
+
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
 @plugin "tailwindcss-animate";
 
