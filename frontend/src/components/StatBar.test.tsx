@@ -35,7 +35,7 @@ describe("StatBar", () => {
 		expect(bar.style.width).toBe("18%");
 	});
 
-	it("resets and re-animates when value changes", () => {
+	it("transitions directly to the new percentage when value changes", () => {
 		const { container, rerender } = render(
 			<StatBar label="HP" value={45} max={255} />,
 		);
@@ -47,12 +47,7 @@ describe("StatBar", () => {
 		expect(bar.style.width).toBe("18%");
 
 		rerender(<StatBar label="HP" value={100} max={255} />);
-		expect(bar.style.width).toBe("0%");
-
-		act(() => {
-			vi.advanceTimersByTime(100);
-		});
-		// Math.round(100 / 255 * 100) = 39
+		// Math.round(100 / 255 * 100) = 39 — no reset to 0
 		expect(bar.style.width).toBe("39%");
 	});
 });
