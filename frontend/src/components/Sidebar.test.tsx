@@ -19,23 +19,28 @@ describe("Sidebar", () => {
 		vi.clearAllMocks();
 	});
 
-	it("does not show Reset all when no filters are active", () => {
+	it("hides Reset all when no filters are active", () => {
 		render(<Sidebar {...defaultProps} />);
-		expect(screen.queryByText("Reset all")).toBeNull();
+		expect(screen.getByText("Reset all").className).toContain("invisible");
 	});
 
-	it("shows Reset all when a type is selected", () => {
+	it("hides Reset all when only a type is selected", () => {
 		render(<Sidebar {...defaultProps} selectedTypes={["Fire"]} />);
-		expect(screen.getByText("Reset all")).toBeDefined();
+		expect(screen.getByText("Reset all").className).toContain("invisible");
 	});
 
-	it("shows Reset all when a sort is active", () => {
+	it("hides Reset all when only a sort is active", () => {
 		render(<Sidebar {...defaultProps} sortField="HP" />);
-		expect(screen.getByText("Reset all")).toBeDefined();
+		expect(screen.getByText("Reset all").className).toContain("invisible");
+	});
+
+	it("shows Reset all when both a type and a sort are active", () => {
+		render(<Sidebar {...defaultProps} selectedTypes={["Fire"]} sortField="HP" />);
+		expect(screen.getByText("Reset all").className).not.toContain("invisible");
 	});
 
 	it("calls onReset when Reset all is clicked", () => {
-		render(<Sidebar {...defaultProps} selectedTypes={["Fire"]} />);
+		render(<Sidebar {...defaultProps} selectedTypes={["Fire"]} sortField="HP" />);
 		fireEvent.click(screen.getByText("Reset all"));
 		expect(defaultProps.onReset).toHaveBeenCalledOnce();
 	});
@@ -74,8 +79,13 @@ describe("Sidebar", () => {
 	it("shows Clear sort button when a sort is active and calls setSortField(undefined) on click", () => {
 		render(<Sidebar {...defaultProps} sortField="HP" />);
 		const clearBtn = screen.getByText("Clear sort");
-		expect(clearBtn).toBeDefined();
+		expect(clearBtn.className).not.toContain("invisible");
 		fireEvent.click(clearBtn);
 		expect(defaultProps.setSortField).toHaveBeenCalledWith(undefined);
+	});
+
+	it("hides Clear sort button when no sort is active", () => {
+		render(<Sidebar {...defaultProps} />);
+		expect(screen.getByText("Clear sort").className).toContain("invisible");
 	});
 });
