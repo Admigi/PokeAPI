@@ -33,6 +33,14 @@ export const GET_STAT_MAX = `
   }
 `;
 
+export const GET_POKEMON_COUNT = `
+  query {
+    pokemons(limit: 1) {
+      total
+    }
+  }
+`;
+
 export const GET_POKEMON_BY_ID = `
   query GetPokemon($id: Int!) {
     pokemon(id: $id) {

@@ -1,9 +1,9 @@
-import { createFileRoute, useParams, useRouter } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useParams, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import StatBar from "@/components/StatBar";
 import { typeColors } from "@/constants/typeColors";
 import { graphqlFetch } from "../../api/graphqlClient.ts";
-import { GET_POKEMON_BY_ID, GET_STAT_MAX } from "../../api/queries.ts";
+import { GET_POKEMON_BY_ID, GET_POKEMON_COUNT, GET_STAT_MAX } from "../../api/queries.ts";
 
 interface Pokemon {
 	id: number;
@@ -29,16 +29,22 @@ function PokemonDetail() {
 	const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [statsMax, setStatsMax] = useState<Record<string, number>>({});
+	const [total, setTotal] = useState<number>(0);
 	const router = useRouter();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		graphqlFetch(GET_STAT_MAX)
 			.then((data) => setStatsMax(data.maxStats))
 			.catch((err) => console.error("Failed to fetch max stats", err));
+		graphqlFetch(GET_POKEMON_COUNT)
+			.then((data) => setTotal(data.pokemons.total))
+			.catch((err) => console.error("Failed to fetch total", err));
 	}, []);
 
 	useEffect(() => {
 		setError(null);
+		setPokemon(null);
 		graphqlFetch(GET_POKEMON_BY_ID, { id: Number(slug) })
 			.then((data) => setPokemon(data.pokemon))
 			.catch((err) => setError(err.message));
@@ -57,8 +63,9 @@ function PokemonDetail() {
 			</div>
 		);
 
+	const id = pokemon.id;
 	const primary = typeColors[pokemon.types[0]] || typeColors.Normal;
-	const total =
+	const total_stats =
 		pokemon.stats.hp +
 		pokemon.stats.attack +
 		pokemon.stats.defense +
@@ -154,8 +161,41 @@ function PokemonDetail() {
 						Total
 					</span>
 					<span className="text-2xl font-black" style={{ color: primary.text }}>
-						{total}
+						{total_stats}
 					</span>
+				</div>
+
+				{/* Navigation */}
+				<div className="flex justify-between items-center mt-6 pt-4 border-t-2 border-gray-100">
+					<button
+						type="button"
+						onClick={() => navigate({ to: "/pokemon/$slug", params: { slug: String(id - 1) } })}
+						disabled={id <= 1}
+						className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
+						style={{
+							backgroundColor: id <= 1 ? "#f3f4f6" : "#1a1a2e",
+							color: id <= 1 ? "#9ca3af" : "#fff",
+							cursor: id <= 1 ? "default" : "pointer",
+						}}
+					>
+						← Previous
+					</button>
+					<span className="text-xs font-bold text-gray-300 tracking-widest">
+						{String(id).padStart(3, "0")} / {String(total).padStart(3, "0")}
+					</span>
+					<button
+						type="button"
+						onClick={() => navigate({ to: "/pokemon/$slug", params: { slug: String(id + 1) } })}
+						disabled={total > 0 && id >= total}
+						className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
+						style={{
+							backgroundColor: (total > 0 && id >= total) ? "#f3f4f6" : "#1a1a2e",
+							color: (total > 0 && id >= total) ? "#9ca3af" : "#fff",
+							cursor: (total > 0 && id >= total) ? "default" : "pointer",
+						}}
+					>
+						Next →
+					</button>
 				</div>
 			</div>
 		</div>
