@@ -64,7 +64,7 @@ function PokemonDetail() {
 	if (error) return <p>Error: {error}</p>;
 	if (!pokemon)
 		return (
-			<div className="h-screen bg-gray-50 flex items-center justify-center">
+			<div className="h-dvh bg-gray-50 flex items-center justify-center">
 				<img
 					src="/Spinner.svg"
 					alt="Loading..."
