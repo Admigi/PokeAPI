@@ -39,6 +39,7 @@ function PokemonDetail() {
 	const [error, setError] = useState<string | null>(null);
 	const [statsMax, setStatsMax] = useState<Record<string, number>>({});
 	const [total, setTotal] = useState<number>(0);
+	const [loading, setLoading] = useState(false);
 	const router = useRouter();
 	const navigate = useNavigate();
 
@@ -53,10 +54,11 @@ function PokemonDetail() {
 
 	useEffect(() => {
 		setError(null);
-		setPokemon(null);
+		setLoading(true);
 		graphqlFetch(GET_POKEMON_BY_ID, { id: Number(slug) })
 			.then((data) => setPokemon(data.pokemon))
-			.catch((err) => setError(err.message));
+			.catch((err) => setError(err.message))
+			.finally(() => setLoading(false));
 	}, [slug]);
 
 	if (error) return <p>Error: {error}</p>;
@@ -83,7 +85,7 @@ function PokemonDetail() {
 		pokemon.stats.speed;
 
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="min-h-screen bg-gray-50 transition-opacity duration-200" style={{ opacity: loading ? 0.5 : 1 }}>
 			<div
 				className="relative overflow-hidden px-8 pt-8 pb-20"
 				style={{
