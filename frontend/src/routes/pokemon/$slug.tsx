@@ -1,9 +1,18 @@
-import { createFileRoute, useNavigate, useParams, useRouter } from "@tanstack/react-router";
+import {
+	createFileRoute,
+	useNavigate,
+	useParams,
+	useRouter,
+} from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import StatBar from "@/components/StatBar";
 import { typeColors } from "@/constants/typeColors";
 import { graphqlFetch } from "../../api/graphqlClient.ts";
-import { GET_POKEMON_BY_ID, GET_POKEMON_COUNT, GET_STAT_MAX } from "../../api/queries.ts";
+import {
+	GET_POKEMON_BY_ID,
+	GET_POKEMON_COUNT,
+	GET_STAT_MAX,
+} from "../../api/queries.ts";
 
 interface Pokemon {
 	id: number;
@@ -92,7 +101,7 @@ function PokemonDetail() {
 						onClick={() => router.history.back()}
 						className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white text-sm font-bold px-5 py-2 rounded-full mb-6 transition-colors border-0 cursor-pointer tracking-wide"
 					>
-						← Back to Pokédex
+						← Back to Pokedex
 					</button>
 					<div className="flex flex-col-reverse sm:flex-row sm:items-end sm:justify-between gap-4">
 						<div>
@@ -169,7 +178,13 @@ function PokemonDetail() {
 				<div className="flex justify-between items-center mt-6 pt-4 border-t-2 border-gray-100">
 					<button
 						type="button"
-						onClick={() => navigate({ to: "/pokemon/$slug", params: { slug: String(id - 1) } })}
+						onClick={() =>
+							navigate({
+								to: "/pokemon/$slug",
+								params: { slug: String(id - 1) },
+								replace: true,
+							})
+						}
 						disabled={id <= 1}
 						className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
 						style={{
@@ -185,13 +200,19 @@ function PokemonDetail() {
 					</span>
 					<button
 						type="button"
-						onClick={() => navigate({ to: "/pokemon/$slug", params: { slug: String(id + 1) } })}
+						onClick={() =>
+							navigate({
+								to: "/pokemon/$slug",
+								params: { slug: String(id + 1) },
+								replace: true,
+							})
+						}
 						disabled={total > 0 && id >= total}
 						className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
 						style={{
-							backgroundColor: (total > 0 && id >= total) ? "#f3f4f6" : "#1a1a2e",
-							color: (total > 0 && id >= total) ? "#9ca3af" : "#fff",
-							cursor: (total > 0 && id >= total) ? "default" : "pointer",
+							backgroundColor: total > 0 && id >= total ? "#f3f4f6" : "#1a1a2e",
+							color: total > 0 && id >= total ? "#9ca3af" : "#fff",
+							cursor: total > 0 && id >= total ? "default" : "pointer",
 						}}
 					>
 						Next →
