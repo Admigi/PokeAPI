@@ -67,7 +67,9 @@ export default function PokemonGrid() {
 		};
 	}, [sidebarOpen]);
 	const [statsMax, setStatsMax] = useState<Record<string, number>>({});
-	const [displayedSortField, setDisplayedSortField] = useState<string | undefined>(undefined);
+	const [displayedSortField, setDisplayedSortField] = useState<
+		string | undefined
+	>(undefined);
 
 	const currentPage = page ?? 1;
 
@@ -151,68 +153,66 @@ export default function PokemonGrid() {
 
 	return (
 		<>
-		<Header />
-		<div className="max-w-6xl mx-auto px-5 py-8 flex gap-6">
-			{sidebarOpen && (
-				<>
-					<button
-						type="button"
-						aria-label="Close filters"
-						className="fixed inset-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
-						onClick={() => setSidebarOpen(false)}
-					/>
-					<div className="no-scrollbar fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
-						<Sidebar
-							selectedTypes={typesAny ?? []}
-							typeMode={typeMode ?? "any"}
-							setTypeMode={setTypeMode}
-							toggleType={toggleType}
-							sortField={sortField ?? null}
-							setSortField={setSortField}
-							sortDir={sortDir ?? "DESC"}
-							setSortDir={setSortDir}
-							onReset={onReset}
+			<Header />
+			<div className="max-w-6xl mx-auto px-5 py-8 flex gap-6">
+				{sidebarOpen && (
+					<>
+						<button
+							type="button"
+							aria-label="Close filters"
+							className="fixed inset-0 bg-black/30 z-40 md:hidden border-0 cursor-default"
+							onClick={() => setSidebarOpen(false)}
 						/>
+						<div className="no-scrollbar fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto md:relative md:inset-auto md:z-auto md:w-auto md:overflow-visible">
+							<Sidebar
+								selectedTypes={typesAny ?? []}
+								typeMode={typeMode ?? "any"}
+								setTypeMode={setTypeMode}
+								toggleType={toggleType}
+								sortField={sortField ?? null}
+								setSortField={setSortField}
+								sortDir={sortDir ?? "DESC"}
+								setSortDir={setSortDir}
+								onReset={onReset}
+							/>
+						</div>
+					</>
+				)}
+				<div className="flex-1 min-w-0">
+					<div className="flex items-center justify-between mb-5">
+						<p className="text-gray-400 text-xs font-semibold uppercase tracking-widest">
+							{loading ? "Loading..." : `${total} Pokémon found`}
+						</p>
+						<button
+							type="button"
+							onClick={() => setSidebarOpen((o) => !o)}
+							className="text-xs font-bold px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors w-28 text-center"
+						>
+							{sidebarOpen ? "Hide filters" : "Show filters"}
+						</button>
 					</div>
-				</>
-			)}
-			<div className="flex-1 min-w-0">
-				<div className="flex items-center justify-between mb-5">
-					<p className="text-gray-400 text-xs font-semibold uppercase tracking-widest">
-						{loading ? "Loading..." : `${total} Pokemon found`}
-					</p>
-					<button
-						type="button"
-						onClick={() => setSidebarOpen((o) => !o)}
-						className="text-xs font-bold px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors w-28 text-center"
-					>
-						{sidebarOpen ? "Hide filters" : "Show filters"}
-					</button>
+					<div className="grid gap-5 grid-cols-2 sm:[grid-template-columns:repeat(auto-fill,minmax(180px,1fr))]">
+						{loading && pokemons.length === 0
+							? Array.from({ length: PAGE_SIZE }, (_, i) => (
+									// biome-ignore lint/suspicious/noArrayIndexKey: skeleton cards are stateless placeholders
+									<SkeletonCard key={i} />
+								))
+							: pokemons.map((p) => (
+									<PokemonCard
+										key={p.id}
+										p={p}
+										activeStat={displayedSortField}
+										statMax={statMax}
+									/>
+								))}
+					</div>
+					<Pagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						disabled={loading}
+					/>
 				</div>
-				<div
-					className="grid gap-5 grid-cols-2 sm:[grid-template-columns:repeat(auto-fill,minmax(180px,1fr))]"
-				>
-					{loading && pokemons.length === 0
-						? Array.from({ length: PAGE_SIZE }, (_, i) => (
-								// biome-ignore lint/suspicious/noArrayIndexKey: skeleton cards are stateless placeholders
-								<SkeletonCard key={i} />
-							))
-						: pokemons.map((p) => (
-								<PokemonCard
-									key={p.id}
-									p={p}
-									activeStat={displayedSortField}
-									statMax={statMax}
-								/>
-							))}
-				</div>
-				<Pagination
-					currentPage={currentPage}
-					totalPages={totalPages}
-					disabled={loading}
-				/>
 			</div>
-		</div>
 		</>
 	);
 }
