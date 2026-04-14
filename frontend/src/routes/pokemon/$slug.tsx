@@ -171,7 +171,7 @@ function PokemonDetail() {
 							})
 						}
 						disabled={prevDisabled}
-						className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
+						className="flex items-center justify-center w-32 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
 						style={{
 							backgroundColor: prevDisabled ? "#f3f4f6" : "#1a1a2e",
 							color: prevDisabled ? "#9ca3af" : "#fff",
@@ -193,7 +193,7 @@ function PokemonDetail() {
 							})
 						}
 						disabled={nextDisabled}
-						className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
+						className="flex items-center justify-center w-32 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
 						style={{
 							backgroundColor: nextDisabled ? "#f3f4f6" : "#1a1a2e",
 							color: nextDisabled ? "#9ca3af" : "#fff",
