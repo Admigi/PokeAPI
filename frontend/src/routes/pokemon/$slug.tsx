@@ -171,14 +171,14 @@ function PokemonDetail() {
 							})
 						}
 						disabled={prevDisabled}
-						className="flex items-center justify-center w-32 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
+						className="flex items-center justify-center w-24 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
 						style={{
 							backgroundColor: prevDisabled ? "#f3f4f6" : "#1a1a2e",
 							color: prevDisabled ? "#9ca3af" : "#fff",
 							cursor: prevDisabled ? "default" : "pointer",
 						}}
 					>
-						← Previous
+						Previous
 					</button>
 					<span className="text-xs font-bold text-gray-300 tracking-widest">
 						{String(id).padStart(3, "0")} / {String(total).padStart(3, "0")}
@@ -193,14 +193,14 @@ function PokemonDetail() {
 							})
 						}
 						disabled={nextDisabled}
-						className="flex items-center justify-center w-32 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
+						className="flex items-center justify-center w-24 py-2 rounded-full text-sm font-bold transition-all border-0 cursor-pointer"
 						style={{
 							backgroundColor: nextDisabled ? "#f3f4f6" : "#1a1a2e",
 							color: nextDisabled ? "#9ca3af" : "#fff",
 							cursor: nextDisabled ? "default" : "pointer",
 						}}
 					>
-						Next →
+						Next
 					</button>
 				</div>
 			</div>
