@@ -1,4 +1,4 @@
-[![jp](https://img.shields.io/badge/LANG-JP-red.svg)](https://github.com/Admigi/Cashcard/blob/main/README_ja.md)
+[![jp](https://img.shields.io/badge/LANG-JP-red.svg)](https://github.com/Admigi/PokeAPI/blob/master/README_ja.md)
 
 # PokeAPI
  
