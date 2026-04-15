@@ -1,4 +1,4 @@
-[![en](https://img.shields.io/badge/LANG-EN-blue.svg)](https://github.com/Admigi/Cashcard/tree/main)
+[![en](https://img.shields.io/badge/LANG-EN-blue.svg)](https://github.com/Admigi/PokeAPI/tree/main)
 
 # PokeAPI
 
