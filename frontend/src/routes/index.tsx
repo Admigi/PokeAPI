@@ -93,6 +93,10 @@ export default function PokemonGrid() {
 		navigate({ search: (prev) => ({ ...prev, typesAny: updated, page: 1 }) });
 	};
 
+	const clearTypes = () => {
+		navigate({ search: (prev) => ({ ...prev, typesAny: [] as string[], page: 1 }) });
+	};
+
 	const setSortField = (field: string | undefined) => {
 		navigate({ search: (prev) => ({ ...prev, sortField: field, page: 1 }) });
 	};
@@ -174,6 +178,7 @@ export default function PokemonGrid() {
 								sortDir={sortDir ?? "DESC"}
 								setSortDir={setSortDir}
 								onReset={onReset}
+								clearTypes={clearTypes}
 							/>
 						</div>
 					</>

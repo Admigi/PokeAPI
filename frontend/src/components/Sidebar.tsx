@@ -13,6 +13,7 @@ interface SidebarProps {
 	sortDir: string;
 	setSortDir: (dir: string) => void;
 	onReset: () => void;
+	clearTypes: () => void;
 }
 
 export default function Sidebar({
@@ -25,6 +26,7 @@ export default function Sidebar({
 	sortDir,
 	setSortDir,
 	onReset,
+	clearTypes,
 }: SidebarProps) {
 	const bothActive = selectedTypes.length > 0 && !!sortField;
 
@@ -92,7 +94,7 @@ export default function Sidebar({
 					</div>
 					<button
 						type="reset"
-						onClick={() => { for (const t of selectedTypes) toggleType(t); }}
+						onClick={clearTypes}
 						className={`w-full text-xs font-bold text-gray-400 hover:text-gray-600 transition-colors pt-2 border-0 bg-transparent cursor-pointer ${selectedTypes.length === 0 ? "invisible pointer-events-none" : ""}`}
 					>
 						Clear types

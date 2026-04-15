@@ -12,6 +12,7 @@ const defaultProps = {
 	sortDir: "DESC",
 	setSortDir: vi.fn(),
 	onReset: vi.fn(),
+	clearTypes: vi.fn(),
 };
 
 describe("Sidebar", () => {
