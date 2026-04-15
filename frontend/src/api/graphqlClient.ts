@@ -1,18 +1,25 @@
 import { createServerFn } from "@tanstack/react-start";
 
-const getGraphqlUrl = createServerFn().handler(() => {
-  return process.env.GRAPHQL_URL || "http://localhost:8080/graphql";
-});
-
-export async function graphqlFetch(query: string, variables: Record<string, unknown> = {}) {
-  const url = await getGraphqlUrl();
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query, variables }),
+const graphqlFetchServer = createServerFn({ method: "POST" })
+  .inputValidator(
+    (input: { query: string; variables: Record<string, unknown> }) => input,
+  )
+  .handler(async ({ data }) => {
+    const url = process.env.GRAPHQL_URL || "http://localhost:8080/graphql";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: data.query, variables: data.variables }),
+    });
+    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+    const { data: responseData, errors } = await response.json();
+    if (errors?.length) throw new Error(errors[0]?.message ?? "Unknown GraphQL error");
+    return responseData;
   });
-  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-  const { data, errors } = await response.json();
-  if (errors?.length) throw new Error(errors[0]?.message ?? "Unknown GraphQL error");
-  return data;
+
+export async function graphqlFetch(
+  query: string,
+  variables: Record<string, unknown> = {},
+) {
+  return graphqlFetchServer({ data: { query, variables } });
 }
