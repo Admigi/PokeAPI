@@ -1,3 +1,5 @@
+[![jp](https://img.shields.io/badge/LANG-JP-red.svg)](https://github.com/Admigi/Cashcard/blob/main/README_ja.md)
+
 # PokeAPI
  
 A full-stack Pokédex application built with Spring Boot GraphQL and React. Browse, search, filter and sort all 151 Generation 1 Pokémon with a clean, responsive UI.
