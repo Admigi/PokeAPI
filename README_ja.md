@@ -1,3 +1,5 @@
+[![en](https://img.shields.io/badge/LANG-EN-blue.svg)](https://github.com/Admigi/Cashcard/tree/main)
+
 # PokeAPI
 
 Spring Boot GraphQLとReactで構築したフルスタックのポケモン図鑑アプリです。第1世代の151匹のポケモンを検索・絞り込み・並び替えできる、クリーンでレスポンシブなUIを備えています。
